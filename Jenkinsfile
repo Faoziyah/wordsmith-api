@@ -66,6 +66,6 @@ pipeline{
          //           // echo "pushed artifact"
          //        }
          //    }
-        }
+      //  }
     }
 }
