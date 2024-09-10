@@ -25,17 +25,17 @@ pipeline{
             }
         }
         
-        // stage('SonarQube analysis') {
-        //     tools {
-        //         jdk 'jdk11'
-        //     }
-        //     steps {
-        //         withSonarQubeEnv('sonar') {
-        //              sh 'mvn sonar:sonar'
-        //         }
-        //        // echo "sonar passed"
-        //     }
-        // }
+        stage('SonarQube analysis') {
+            tools {
+                jdk 'jdk11'
+            }
+            steps {
+                withSonarQubeEnv('sonar') {
+                     sh 'mvn sonar:sonar'
+                }
+               // echo "sonar passed"
+            }
+        }
         // stage("Quality Gate") {
         //     steps {
         //          timeout(time: 1, unit: 'HOURS') {
