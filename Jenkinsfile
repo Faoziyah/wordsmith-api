@@ -54,7 +54,7 @@ pipeline{
                          nexusUrl: '54.193.163.208:8081',
                          groupId: 'com.example',
                          version: "${componentVersion}",
-                         repository: 'maven-snapshots',
+                         repository: 'maven-releases',
                          credentialsId: 'nexus-creds',
                          artifacts: [
                              [artifactId: 'words',
