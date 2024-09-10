@@ -6,7 +6,7 @@ pipeline{
     stages{
         stage("Clone"){
             steps{
-                git branch: 'jenkins', credentialsId: 'github-token', url: 'https://github.com/Faoziyah/wordsmith-api.git'
+                git branch: 'jenkins', credentialsId: 'git-user-pass', url: 'https://github.com/Faoziyah/wordsmith-api.git'
                 sh"ls -l"
                 
             }
