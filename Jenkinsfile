@@ -36,14 +36,14 @@ pipeline{
                // echo "sonar passed"
             }
         }
-        // stage("Quality Gate") {
-        //     steps {
-        //          timeout(time: 1, unit: 'HOURS') {
-        //              waitForQualityGate abortPipeline: true
-        //          }
-        //         //echo "sonar passed"
-        //     }
-        // }
+        stage("Quality Gate") {
+            steps {
+                 timeout(time: 1, unit: 'HOURS') {
+                     waitForQualityGate abortPipeline: true
+                 }
+                //echo "sonar passed"
+            }
+        }
          // stage("Upload jar to Nexus"){
          //    steps{
          //        script{
