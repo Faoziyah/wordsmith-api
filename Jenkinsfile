@@ -44,28 +44,43 @@ pipeline{
                 //echo "sonar passed"
             }
         }
-         // stage("Upload jar to Nexus"){
-         //    steps{
-         //        script{
-         //            //def componentVersion = getVersion()
-         //             nexusArtifactUploader(
-         //                 nexusVersion: 'nexus3',
-         //                 protocol: 'http',
-         //                 nexusUrl: '13.57.34.38:8081',
-         //                 groupId: 'com.example',
-         //                 version: "1.0-SNAPSHOT",
-         //                 repository: 'maven-snapshots',
-         //                 credentialsId: 'nexus-creds',
-         //                 artifacts: [
-         //                     [artifactId: 'words',
-         //                    classifier: '',
-         //                     file: "${WORKSPACE}/target/words.jar",
-         //                     type: 'jar']
-         //                 ]
-         //             )
-         //           // echo "pushed artifact"
-         //        }
-         //    }
-      //  }
+         stage("Upload jar to Nexus"){
+            steps{
+                script{
+                    def componentVersion = getVersion()
+                     nexusArtifactUploader(
+                         nexusVersion: 'nexus3',
+                         protocol: 'http',
+                         nexusUrl: '54.193.163.208:8081',
+                         groupId: 'com.example',
+                         version: "${componentVersion}",
+                         repository: 'maven-snapshots',
+                         credentialsId: 'nexus-creds',
+                         artifacts: [
+                             [artifactId: 'words',
+                            classifier: '',
+                             file: "${WORKSPACE}/target/words.jar",
+                             type: 'jar']
+                         ]
+                     )
+                   // echo "pushed artifact"
+                }
+            }
+
+             
+       }
     }
+}
+def getVersion(){
+    def pom = readMavenPom file: 'pom.xml'
+    def baseVersion = pom.version
+    def finalVersion
+    if(env.BRANCH_NAME == "develop"){
+        finalVersion = "${baseVersion}-rc"
+    }else if(env.BRANCH_NAME == "main"){
+        finalVersion = baseVersion
+    }else{
+        finalVersion = "${baseVersion}-${BUILD_NUMBER}-${env.BRANCH_NAME}"
+    }
+    return finalVersion
 }
